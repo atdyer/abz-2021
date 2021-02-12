@@ -1,0 +1,59 @@
+\documentclass[runningheads]{llncs}
+
+\begin{document}
+
+\title{Sterling: A Web-based Visualizer for Relational Models}
+\author{Tristan Dyer \inst{1} \and John Baugh \inst{2}}
+\authorrunning{Dyer and Baugh}
+
+\institute{Brown University \and North Carolina State University}
+
+\authorrunning{Dyer and Baugh}
+
+\maketitle
+
+\begin{abstract}
+We introduce Sterling, a web-based visualization tool for Alloy that provides enhanced versions of existing Alloy visualizations and introduces new capabilities to address shortcomings of the visual abstractions typically used to display instances of relational models. While development is driven primarily by the needs of the Alloy community, other relational logic and model finding tools can also be accommodated in its model-view architecture, which uses a mediator pattern to keep the approach data agnostic.
+\end{abstract}
+
+\section{Introduction}
+\label{introduction}
+
+\section{Visualization in Alloy}
+\label{alloy}
+
+In this section we talk about how visualizations are currently done in Alloy. First we talk about what instances are, then we introduces the four views: Graph, Table, Tree, Text. Of those four views, the Graph view is the most commonly used.
+
+\section{Visual Abstraction and Relational Modeling}
+\label{visual-abstraction}
+
+In this section I want to do a bunch of citing of other work that makes use of Alloy. Each one that I cite should give an example of a model that is created to represent and make assertions about something that has a unique visual abstraction that does not necessarily align with the typical directed graph representation. This is building the case for a need for a tool like Sterling.
+
+In particular, we need to cite our own work and make a strong case that spatial attributes are important in the context of modeling scientific software.
+
+Other good examples could even include the ABZ case studies, which were:
+\begin{itemize}
+    \item Landing Gear (2014)
+    \item Hemodialysis Machine (2016)
+    \item Hybrid ERTMS/ETCS, ie. trains (2018)
+    \item Adaptive Exterior Light and Speed Control System (current)
+\end{itemize}
+
+\section{Sterling}
+\label{sterling}
+
+This section introduces Sterling from an interface perspective. It includes images of Sterling views next to images of Alloy views. There should be a paragraph (or maybe a section?) about each of the existing views that Sterling improves on, as well as a subsection specifically dedicated to the Script view. In the script view section we need to call back to the examples from Section~\ref{visual-abstraction} and show visualizations that would otherwise be impossible to create in Alloy.
+
+\section{Beyond Alloy}
+\label{other-tools}
+
+This section describes the design decisions surrounding Sterling and how those design decisions have made Sterling a data agnostic tool. It talks about how Sterling is already used in Forge as the primary visualizer.
+
+We also need to discuss the ability to enrich model data with metadata that could subsequently be used by Sterling to change the visualizations and/or the Sterling interface itself. This has been done in Forge, but I'd need to check with Tim to see if it's okay to use here.
+
+\section{Conclusions}
+\label{conclusions}
+
+Wrap it up.
+
+\end{document}
