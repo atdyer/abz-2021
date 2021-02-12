@@ -31,7 +31,8 @@
 \maketitle
 
 \begin{abstract}
-We introduce Sterling, a web-based visualization tool for Alloy that provides enhanced versions of existing Alloy visualizations and introduces new capabilities to address shortcomings of the visual abstractions typically used to display instances of relational models. While development is driven primarily by the needs of the Alloy community, other relational logic and model finding tools can also be accommodated in its model-view architecture, which uses a mediator pattern to keep the approach data agnostic.
+We introduce Sterling, a web-based visualization tool for Alloy that provides enhanced versions of existing Alloy visualizations and introduces new capabilities to address shortcomings of the visual abstractions typically used to display instances of relational models. 
+%While development is driven primarily by the needs of the Alloy community, other relational logic and model finding tools can also be accommodated in its model-view architecture, which uses a mediator pattern to keep the approach data agnostic.
 \end{abstract}
 
 \section{Introduction}
@@ -47,7 +48,7 @@ This customizability, in combination with the ability to manually reposition nod
 Additionally, the graph view supports ``projection'', a feature most commonly used with models of dynamic systems. When an instance of such a model is projected over time, the user is able to interactively step through snapshots of individual states in sequence.
 
 Despite these features, certain limitations of the visualizer make it difficult to use as instances increase in size and complexity. 
-Issues identified in the literature include the graph layout algorithm, which provides no option for customization by the user and rigidly arranges graph nodes into rows~\cite{couto2018,macedo2019}, and the low-level nature of the graph representation, which can become difficult to interpret as models become more complex~\cite{gammaitoni2014}. 
+Issues identified in the literature include the layout algorithm, which provides no option for customization by the user and rigidly arranges graph nodes into rows~\cite{couto2018,macedo2019}, and the low-level nature of the graph representation, which can become difficult to interpret as models become more complex~\cite{gammaitoni2014}. 
 Furthermore, the graph layout is recalculated any time a new instance is generated or the projection is changed, and so the user must reinterpret the entire graph if, for example, they are stepping through the state atoms in sequence~\cite{couto2018,misue1995,zaman2013}.
 
 %Furthermore, our own experience using Alloy in the field of scientific computing has highlighted the need for a visualization approach capable of expressing \emph{spatial} relationships---not just topological ones---and to \emph{consistency} in those relationships when dynamic updates occur, as they do in problems with time-varying state.
@@ -74,7 +75,7 @@ Communication between Alloy and the individual views is managed using a mediator
 \begin{figure}
     \centering
     \dummyfigsmall{Communication pattern image.}
-    \caption{A dense matrix in Alloy (left) and Sterling (right)}
+    \caption{The Sterling communication pattern.}
     \label{fig:communication}
 \end{figure}
 
@@ -86,17 +87,13 @@ Paragraph about the script view and how it works.
 \begin{figure}
     \centering
     \dummyfiglarge{Script View Example}
-    \caption{Script View Example}
+    \caption{Script view example with graph view on left, custom vis on right.}
     \label{fig:script}
 \end{figure}
 
 %Sterling is a web application, packaged with a custom build of Alloy, that provides both an enhanced graph visualization to address limitations of Alloy's visualizer and a means for creating custom visualizations when the directed graph representation proves insufficient.
 %Drawing on the approach taken by tools like Alloy4Fun~\cite{macedo2019} and BMotionWeb~\cite{ladenberger2016}, a web-based platform was chosen due to the availability of robust data visualization and user interface libraries as well as the popularity of the JavaScript programming language. 
 %Consistent with design goals~\ref{dg1} and~\ref{dg2}, Sterling is launched automatically by Alloy when an instance is generated, presenting a familiar user interface. Mirroring the Alloy Visualizer interface, multiple methods for viewing the instance are available through 
-
-\section{Examples}
-
-Provide improved graph visualization capabilities without requiring the user to learn a new language, but also give users who know some javascript or a willing to learn it the ability to quickly generate custom visualizations.
 
 \section{Conclusions and Ongoing Work}
 \label{conclusions}
