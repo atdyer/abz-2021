@@ -35,6 +35,8 @@ We introduce Sterling, a web-based visualization tool for Alloy that provides en
 %While development is driven primarily by the needs of the Alloy community, other relational logic and model finding tools can also be accommodated in its model-view architecture, which uses a mediator pattern to keep the approach data agnostic.
 \end{abstract}
 
+\keywords{Alloy \and Sterling \and Formal Methods \and Visualization}
+
 \section{Introduction}
 \label{introduction}
 
@@ -69,7 +71,7 @@ The following design goals define our approach to instance visualization based o
 Consistent with design goals~\ref{dg1} and~\ref{dg2}, Sterling is a web application, packaged with a custom build of Alloy, that provides a user interface similar to Alloy's own and is launched automatically by Alloy when an instance is generated. 
 Drawing on the approach taken by tools like Alloy4Fun~\cite{macedo2019} and BMotionWeb~\cite{ladenberger2016}, a web-based platform was chosen due to the availability of robust data visualization and user interface libraries as well as the popularity of the JavaScript programming language.
 A client-server relationship is established between Sterling and Alloy by an embedded web server in Alloy, enabling instances to be delivered to Sterling in the XML format provided by Alloy. 
-As in the Alloy visualizer, the Sterling user interface is organized into separate ``views'', each providing a different method for visualizing the instance. 
+As in the Alloy visualizer, the Sterling user interface is organized into separate views, each providing a different method for visualizing the instance. 
 Communication between Alloy and the individual views is managed using a mediator pattern, illustrated in Figure~\ref{fig:communication}. Three views are packaged with Sterling: graph, table, and script. The first two views extend the functionality of their counterparts in Alloy, while the script view, addressing design goal~\ref{dg3}, provides users with the ability to create custom visualizations from instance data by writing JavaScript code.
 
 \begin{figure}
@@ -82,12 +84,18 @@ Communication between Alloy and the individual views is managed using a mediator
 
 The Sterling graph view provides all of the same functionality of the Alloy graph view, but is supported by a few key extensions. Most notably, graph elements are not restricted to rows; users may freely arrange graphical elements to make the display more readable. Furthermore, the layout algorithm is not automatically executed when the projection is updated or when a new instance is generated, unless the graphs do not have any elements in common. As such, graphical elements remain static as users step through stateful models and generate instances.
 
-Paragraph about the script view and how it works.
+The Sterling script view provides an environment for the rapid development of custom visualizations by bringing together three components: a text editor, a blank rendering stage, and a JavaScript execution environment. 
+This combination gives the user a basic ``code sandbox'' in which they can use their favorite JavaScript libraries to create visualizations based on the instance data. Within the script view environment, all instance data---the signatures, fields, atoms, and tuples---are exposed as JavaScript variables. 
+Furthermore, users have direct access to the npm package repository~\cite{npm} which can be used to add visualization (or any other useful) libraries to the scripting environment.
+This combination enables, for example, a user to bind atoms to SVG circles using the D3 visualization library, and to calculate their positions based on the relationships defined by the tuples.
+In our own use we have found this paradigm to be particularly useful for visualizing instances of models that have inherent spatial properties, such as those shown in Figure~\ref{fig:script}.
+Scripts written in the editor are executed each time Sterling receives a new instance or the projection is updated. 
+As such, users enjoy the same type of immediate visual feedback provided by the graph view with the added benefit of complete control over the visual abstraction used to present the instance.
 
 \begin{figure}
     \centering
     \dummyfiglarge{Script View Example}
-    \caption{Script view example with graph view on left, custom vis on right.}
+    \caption{Custom visualizations created with the Sterling script view: (1) an instance of the dining philosophers problem in which deadlock has been reached; (2) an instance of a binary tree model in which nodes are positioned based on their presence in the ``left'' and ``right'' relations.}
     \label{fig:script}
 \end{figure}
 
