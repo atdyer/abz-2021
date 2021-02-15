@@ -31,8 +31,9 @@
 \maketitle
 
 \begin{abstract}
-We introduce Sterling, a web-based visualization tool for Alloy that provides enhanced versions of existing Alloy visualizations and introduces new capabilities to address shortcomings of the visual abstractions typically used to display instances of relational models. 
-%While development is driven primarily by the needs of the Alloy community, other relational logic and model finding tools can also be accommodated in its model-view architecture, which uses a mediator pattern to keep the approach data agnostic.
+We introduce Sterling, a web-based visualization tool for Alloy that provides enhanced versions of existing Alloy visualizations and introduces new capabilities to address shortcomings of the visual abstractions typically used to display instances of relational models.
+While development is driven primarily by the needs of the Alloy community, other relational logic and model finding tools are accommodated by its model-view architecture, which uses a mediator pattern to keep the approach data agnostic.
+We describe our design goals and demonstrate effective use of Sterling by presenting custom visualizations of models with inherently spatial characteristics.
 \end{abstract}
 
 \keywords{Alloy \and Sterling \and Formal Methods \and Visualization}
@@ -57,22 +58,26 @@ Furthermore, the graph layout is recalculated any time a new instance is generat
 
 Various approaches have been proposed to address these and other issues, either by extending Alloy's visualizer or by introducing new tools. Those extending the existing visualizer may, for instance, improve the visualization by automatically determining projections and attributes using contextual clues from the instance~\cite{zaman2013}. Those introducing new tools may, e.g., provide a wider range of layout algorithms~\cite{couto2018,macedo2019}, or extend the Alloy language so the user can provide visualization directives as part of the model~\cite{gammaitoni2014}.
 
+...our own research has shown that instances can be particularly difficult to interpret when models incorporate spatial characteristics. Graphs nodes are laid out hierarchically in an attempt to minimize edge crossings, an objective often at conflict with what might logically make more sense based on the spatial properties embedded in the model...
+
 \section{Sterling Design Goals and Architecture}
 \label{sterling}
 
-The following design goals define our approach to instance visualization based on both the strengths and shortcomings of the existing visualizations, and draw inspiration from the Thirteen Principles of Display Design~\cite{wickens2003}, as indicated by \emph{italics}.
+Based on both the strengths and shortcomings of the existing visualizations, and drawing inspiration from the Thirteen Principles of Display Design~\cite{wickens2003} (as indicated by \emph{italics}), our approach to instance visualization is characterized by the following design goals: (1) based on the \emph{principle of consistency} Sterling should provide a user interface similar to that of the Alloy visualizer when possible; (2) Sterling should \emph{minimize information access cost} by providing visual feedback and minimizing the effort required to create legible visualizations; and (3) based on the \emph{principle of pictorial realism} Sterling should provide functionality for creating domain specific visualizations.
 
-\begin{enumerate}
-    \item \label{dg1} Based on the \emph{principle of consistency}, a tool supporting Alloy visualization by extending existing functionality should provide a user interface similar to that of the Alloy visualizer when possible.
-    \item \label{dg2} A tool should \emph{minimize information access cost} by providing immediate visual feedback and minimizing the effort required to create legible visualizations.
-    \item \label{dg3} Based on the \emph{principle of pictorial realism}, which states that a display should look like the variable that it represents, a tool should provide functionality for creating domain specific visualizations.
-\end{enumerate}
+% The following design goals define our approach to instance visualization based on both the strengths and shortcomings of the existing visualizations, and draw inspiration from the Thirteen Principles of Display Design~\cite{wickens2003}, as indicated by \emph{italics}.
 
-Consistent with design goals~\ref{dg1} and~\ref{dg2}, Sterling is a web application, packaged with a custom build of Alloy, that provides a user interface similar to Alloy's own and is launched automatically by Alloy when an instance is generated. 
+% \begin{enumerate}
+%     \item \label{dg1} Based on the \emph{principle of consistency}, a tool supporting Alloy visualization by extending existing functionality should provide a user interface similar to that of the Alloy visualizer when possible.
+%     \item \label{dg2} A tool should \emph{minimize information access cost} by providing immediate visual feedback and minimizing the effort required to create legible visualizations.
+%     \item \label{dg3} Based on the \emph{principle of pictorial realism}, which states that a display should look like the variable that it represents, a tool should provide functionality for creating domain specific visualizations.
+% \end{enumerate}
+
+Consistent with design goals 1 and 2, Sterling is a web application, packaged with a custom build of Alloy, that provides a user interface similar to Alloy's own and is launched automatically by Alloy when an instance is generated. 
 Drawing on the approach taken by tools like Alloy4Fun~\cite{macedo2019} and BMotionWeb~\cite{ladenberger2016}, a web-based platform was chosen due to the availability of robust data visualization and user interface libraries as well as the popularity of the JavaScript programming language.
 A client-server relationship is established between Sterling and Alloy by an embedded web server in Alloy, enabling instances to be delivered to Sterling in the XML format provided by Alloy. 
 As in the Alloy visualizer, the Sterling user interface is organized into separate views, each providing a different method for visualizing the instance. 
-Communication between Alloy and the individual views is managed using a mediator pattern, illustrated in Figure~\ref{fig:communication}. Three views are packaged with Sterling: graph, table, and script. The first two views extend the functionality of their counterparts in Alloy, while the script view, addressing design goal~\ref{dg3}, provides users with the ability to create custom visualizations from instance data by writing JavaScript code.
+Communication between Alloy and the individual views is managed using a mediator pattern, illustrated in Figure~\ref{fig:communication}. Three views are packaged with Sterling: graph, table, and script. The first two views extend the functionality of their counterparts in Alloy, while the script view, addressing design goal 3, provides users with the ability to create custom visualizations from instance data by writing JavaScript code.
 
 \begin{figure}
     \centering
