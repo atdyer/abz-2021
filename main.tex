@@ -77,13 +77,16 @@ While development is driven primarily by the Alloy community, other relational m
 Model finding tools like Alloy enable a lightweight approach to design and reasoning about complex software systems. Such tools provide push-button analysis for both checking assertions within bounded scopes, and for generating instances that satisfy a property of interest. An attractive feature of Alloy is the immediate feedback provided by visualizations, allowing users to inspect instances and counterexamples in order to identify design problems. The ability to communicate visual information \emph{intuitively} therefore plays a key role in determining the effectiveness of interactions with the user~\cite{gammaitoni2014}.
 
 The Alloy Analyzer includes a visualizer that can display an instance as a directed graph in which nodes represent atoms and edges represent tuples of relations.
-To help the user better understand the instance, basic properties of the graph such as color and shape can be customized, and the graph nodes can manually repositioned to achieve a more clear layout.
-Additionally, the graph view supports ``projection'', a feature most commonly used with models of dynamic systems. 
-When an instance of such a model is projected over time, the user is able to interactively step through snapshots of individual states in sequence.
+To help users better understand an instance, basic properties of the graph such as color and shape can be customized, and graph nodes can repositioned manually to achieve a clearer layout.
+Additionally, the graph view supports ``projection,'' a feature most commonly used with models of dynamic systems. 
+When an instance of such a model is projected over time, the user is able to step through snapshots of individual states in sequence.
 
-Despite these features, common issues such as the inability to drag nodes out of the rows into which they are initially laid out~\cite{couto2018,macedo2019}, among others, make it difficult to interpret instances as they grow in size and complexity.
-Furthermore, the graph layout is recalculated any time a new instance is generated or the projection is changed, and so the user is forced to reinterpret the entire graph if, for example, they are stepping through the state atoms in sequence~\cite{couto2018,misue1995,zaman2013}.
-While various approaches have been proposed to address these and other issues, either by extending the existing visualizer~\cite{zaman2013} or introducing new tools~\cite{couto2018,macedo2019,gammaitoni2014}, our own experience using Alloy in the field of scientific computing has highlighted the need for an approach that facilitates the clear expression of \emph{spatial} relationships---not just topological ones---and to \emph{consistency} in those relationships when dynamic updates occur, as they do in problems with time-varying state.
+
+
+Despite these capabilities, some instances can be difficult to interpret as models grow in size and complexity.
+Some well-known issues, for instance, include the inability to drag nodes out of the rows into which they are initially laid out~\cite{couto2018,macedo2019}.
+In addition, the graph layout is recalculated any time a new instance is generated or the projection is changed, so the user is forced to reinterpret the entire graph if, for example, they are stepping through the state atoms in sequence~\cite{couto2018,misue1995,zaman2013}.
+While various approaches have been proposed to address these and other issues, either by extending the existing visualizer~\cite{zaman2013} or by introducing new tools~\cite{couto2018,macedo2019,gammaitoni2014}, our own experience using Alloy in the field of scientific computing has highlighted the need for an approach that facilitates the clear expression of \emph{spatial} relationships---not just topological ones---{\color{red}and to \emph{consistency}} in those relationships when dynamic updates occur, as they do in problems with time-varying state.
 
 % \section{Introduction}
 % \label{introduction}
@@ -108,6 +111,14 @@ While various approaches have been proposed to address these and other issues, e
 % Those introducing new tools may, e.g., provide a wider range of layout algorithms~\cite{couto2018,macedo2019}, or extend the Alloy language so the user can provide visualization directives as part of the model~\cite{gammaitoni2014}.
 
 %Our own experience using Alloy in the field of scientific computing, however, has highlighted the need for an approach that facilitates the clear expression of \emph{spatial} relationships---not just topological ones---and to \emph{consistency} in those relationships when dynamic updates occur, as they do in problems with time-varying state.
+
+{\color{red}The transition here needs to be that our prior studies
+  motivated what we're doing now, and I wonder about adding (back?) a
+  comment about discussions in the Alloy meeting.  Otherwise the
+  reader will think we're about to describe other ``prior''
+  visualization work instead of work that motivates better
+  visualization.}
+
 In prior work, Baugh and Altuntas~\cite{baugh-scp-2018} use Alloy to explore implementation choices and ensure soundness of an extension made to an ocean circulation model called ADCIRC.
 In the models, finite element mesh topologies are constrained to include only those that have a planar embedding, ensuring the mesh, which can be thought of as a triangulation of a surface, is physically meaningful. 
 Inferring the planar embedding given only the topologies of the model relations proved difficult for the authors, who state that ``more than any extension to Alloy, what would have benefited our study most is a tool capable of automatically producing planar embeddings of meshes from Alloy instances, which proved to be tedious to do by hand.''
