@@ -209,6 +209,10 @@ Communication between Alloy and the individual views is managed using a mediated
     ([yshift=-0.25em]mediator.west) to [out=205,in=335] 
     node[auto, align=center] {\scriptsize\shortstack{Instance\\Requests}} 
     ([yshift=-0.25em]alloy.east);
+    
+\node[draw, fit=(sterling.south west)(sterling.south east), anchor=north, below=0 of sterling.south, minimum height=2.5em, inner sep=0, outer sep=0] (webstack) {};
+\node[draw, fit=(scriptview.south west)(scriptview.south east), anchor=north, below=1.5em of scriptview.south, minimum height=1.5em, inner sep=0, outer sep=0, label=center:\scriptsize React] (react) {};
+\node[draw, fit=(scriptview.south west)(scriptview.south east), anchor=west, right=1.em of react.east, minimum height=1.5em, inner sep=0, outer sep=0, label=center:\scriptsize Redux] (redux) {};
 
 % { [local bounding box=webstack, node distance=0.35em]
 %     \node [ltbox] (js) {JS};
