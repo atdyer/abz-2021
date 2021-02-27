@@ -41,9 +41,8 @@
 \maketitle
 
 \begin{abstract}
-We introduce Sterling, a web-based visualization tool that provides interactive views of relational models and enables users to create custom visualizations using modern JavaScript libraries such as D3 and Cytoscape.
-Users enjoy the same immediate visual feedback provided by tools like Alloy.
-We outline its design goals and architecture, and describe custom visualizations developed with Sterling that enable verification studies of production scientific software.
+We introduce Sterling, a web-based visualization tool that provides interactive views of relational models and allows users to create custom visualizations using modern JavaScript libraries like D3 and Cytoscape.
+We outline its design goals and architecture, and describe custom visualizations developed with Sterling that enable verification studies of scientific software used in production.
 While development is driven primarily by the Alloy community, other relational modeling languages are accommodated by Sterling's data agnostic architecture.
 \end{abstract}
 
@@ -109,10 +108,10 @@ While various approaches have been proposed to address these and other issues, e
 % Those introducing new tools may, e.g., provide a wider range of layout algorithms~\cite{couto2018,macedo2019}, or extend the Alloy language so the user can provide visualization directives as part of the model~\cite{gammaitoni2014}.
 
 %Our own experience using Alloy in the field of scientific computing, however, has highlighted the need for an approach that facilitates the clear expression of \emph{spatial} relationships---not just topological ones---and to \emph{consistency} in those relationships when dynamic updates occur, as they do in problems with time-varying state.
-In a prior study, Baugh and Altuntas use Alloy to explore implementation choices and ensure soundness of an extension made to an ocean circulation model called ADCIRC~\cite{baugh-scp-2018}.
+In prior work, Baugh and Altuntas~\cite{baugh-scp-2018} use Alloy to explore implementation choices and ensure soundness of an extension made to an ocean circulation model called ADCIRC.
 In the models, finite element mesh topologies are constrained to include only those that have a planar embedding, ensuring the mesh, which can be thought of as a triangulation of a surface, is physically meaningful. 
 Inferring the planar embedding given only the topologies of the model relations proved difficult for the authors, who state that ``more than any extension to Alloy, what would have benefited our study most is a tool capable of automatically producing planar embeddings of meshes from Alloy instances, which proved to be tedious to do by hand.''
-In another study, our group uses Alloy to verify the full functional correctness (within a bounded scope) of sparse matrix formats~\cite{dyer2019}, which use array indirection and other machinery to avoid storing zeroes.
+In another study~\cite{dyer2019}, we use Alloy to verify the full functional correctness (within a bounded scope) of sparse matrix formats, which use array indirection and other structure to avoid storing zeroes.
 Dense matrices are modeled as relations mapping indices to values, and they can contain dozens of tuples, resulting in a visualization cluttered with edges.
 As we move to sparse matrices and the dynamic state changes that accompany operations like matrix multiplication, the visualizations become nearly impossible to interpret.
 
@@ -129,7 +128,7 @@ Motivated by these studies, we have developed an approach to instance visualizat
 % Motivated by these studies, we developed an approach to instance visualization that builds on the strengths of existing visualizations and is characterized by the following design principles: (1) a visualizer should provide an Alloy-like user interface when possible; (2) a visualizer should provide immediate visual feedback and minimize the effort required to create legible visualization; and (3) a visualizer should provide functionality for creating domain specific visualizations.
 
 
-Consistent with design goals 1 and 2, Sterling is a React web application\footnote{A Sterling demo with examples can be found at \href{https://alloy-js.github.io/demo}{https://sterling-js.github.io/demo}}, packaged with a custom build of Alloy, that is launched automatically in the user's default browser by Alloy when an instance is generated. 
+Consistent with design goals 1 and 2, Sterling is a React web application,\footnote{A Sterling demo with examples can be found at \href{https://sterling-js.github.io/demo}{https://sterling-js.github.io/demo}} packaged with a custom build of Alloy, that is launched automatically in the user's default browser by Alloy when an instance is generated. 
 % Drawing on the approach taken by tools like Alloy4Fun~\cite{macedo2019} and BMotionWeb~\cite{ladenberger2016}, a web-based platform was chosen due to the availability of robust data visualization and user interface libraries as well as the popularity of the JavaScript programming language.
 % A client-server relationship is established between Sterling and Alloy by an embedded web server in Alloy, enabling instances to be delivered to Sterling in the XML format provided by Alloy. 
 The user interface is similar to Alloy's own, providing graph and table views which extend the functionality of their counterparts in Alloy, while the addition of a ``script'' view provides users with the ability to create custom visualizations from instance data by writing JavaScript code, addressing our third design goal.
