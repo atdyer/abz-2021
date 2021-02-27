@@ -41,7 +41,8 @@
 \maketitle
 
 \begin{abstract}
-We introduce Sterling, a web-based visualization tool that enables users to create custom visualizations using modern JavaScript libraries without sacrificing the immediate visual feedback provided by tools like Alloy.
+We introduce Sterling, a web-based visualization tool that provides interactive views of relational models and enables users to create custom visualizations using modern JavaScript libraries.
+Users enjoy the same immediate visual feedback provided by tools like Alloy.
 We outline its design goals and architecture, and describe custom visualizations developed with Sterling that enable verification studies of production scientific software.
 While development is driven primarily by the Alloy community, other relational modeling languages are accommodated by Sterling's data agnostic architecture.
 \end{abstract}
@@ -128,7 +129,7 @@ Motivated by these studies, we have developed an approach to instance visualizat
 % Motivated by these studies, we developed an approach to instance visualization that builds on the strengths of existing visualizations and is characterized by the following design principles: (1) a visualizer should provide an Alloy-like user interface when possible; (2) a visualizer should provide immediate visual feedback and minimize the effort required to create legible visualization; and (3) a visualizer should provide functionality for creating domain specific visualizations.
 
 
-Consistent with design goals 1 and 2, Sterling is a React web application\footnote{A Sterling demo with examples can be found at \href{https://alloy-js.github.io/demo}{https://alloy-js.github.io/demo}}, packaged with a custom build of Alloy, that is launched automatically in the user's default browser by Alloy when an instance is generated. 
+Consistent with design goals 1 and 2, Sterling is a React web application\footnote{A Sterling demo with examples can be found at \href{https://alloy-js.github.io/demo}{https://sterling-js.github.io/demo}}, packaged with a custom build of Alloy, that is launched automatically in the user's default browser by Alloy when an instance is generated. 
 % Drawing on the approach taken by tools like Alloy4Fun~\cite{macedo2019} and BMotionWeb~\cite{ladenberger2016}, a web-based platform was chosen due to the availability of robust data visualization and user interface libraries as well as the popularity of the JavaScript programming language.
 % A client-server relationship is established between Sterling and Alloy by an embedded web server in Alloy, enabling instances to be delivered to Sterling in the XML format provided by Alloy. 
 The user interface is similar to Alloy's own, providing graph and table views which extend the functionality of their counterparts in Alloy, while the addition of a ``script'' view provides users with the ability to create custom visualizations from instance data by writing JavaScript code, addressing our third design goal.
