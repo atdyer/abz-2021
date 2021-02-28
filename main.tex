@@ -91,7 +91,7 @@ Our own experiences with Alloy in the field of scientific computing have highlig
 For instance, in one such study, Baugh and Altuntas~\cite{baugh-scp-2018} use Alloy to explore implementation choices and ensure soundness of an extension made to a large-scale storm surge application used in production.
 To be physically meaningful, models representing finite element meshes---which can be thought of as a triangulation of a surface---are constrained to include only those that have a planar embedding.
 Working with relational depictions alone means ``untangling'' each instance as it occurs, leading to the study's conclusion that ``more than any extension to Alloy, what would have benefited our study most is a tool capable of automatically producing planar embeddings of meshes from Alloy instances, which proved to be tedious to do by hand.''
-In a subsequent study~\cite{dyer2019}, our group uses Alloy to perform bounded verification of sparse matrix formats, which use array indirection and other structure to avoid storing zeroes.
+In a subsequent study~\cite{dyer2019} with Alloy, our group performs bounded verification of sparse matrix formats, which use array indirection and other structure to avoid storing zeroes.
 Dense matrices are modeled as relations mapping indices to values, producing dozens of tuples that clutter and overrun any visualization attempt with edges.
 The sparse matrices themselves, and the dynamic state changes that accompany them for operations like matrix multiplication, make visualizations nearly impossible to interpret.
 
