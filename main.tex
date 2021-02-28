@@ -85,8 +85,8 @@ Various approaches have been proposed to address these and other issues, either 
 %   for improved visualization and the ability to customize ... no
 %   ``print'' statements, and need to interpret rich state.}
 
-Our own experience using Alloy in the field of scientific computing, however, has highlighted the need for an approach that facilitates the clear expression of \emph{spatial} relationships---not just topological ones---and to \emph{consistency} in those relationships when dynamic updates occur, as they do in problems with time-varying state.
-This work, which we describe below, has additionally demonstrated the need for an approach that facilitates the expression of rich state and enables users to choose an appropriate visual abstraction without being restricted by the design and implementation choices of the visualizer.
+Our own experience using Alloy in the field of scientific computing, however, has highlighted the need for an approach that facilitates the clear expression of \emph{spatial} relationships---not just topological ones---and to maintaining \emph{consistency} in those relationships when dynamic updates occur, as they do in problems with time-varying state.
+% This work, which we describe below, has additionally demonstrated the need for an approach that facilitates the expression of rich state and enables users to choose an appropriate visual abstraction without being restricted by the design and implementation choices of the visualizer.
 In one study, Baugh and Altuntas~\cite{baugh-scp-2018} use Alloy to explore implementation choices and ensure soundness of an extension made to an ocean circulation model called ADCIRC.
 In the models, finite element mesh topologies are constrained to include only those that have a planar embedding, ensuring the mesh, which can be thought of as a triangulation of a surface, is physically meaningful. 
 Inferring the planar embedding given only the topologies of the model relations proved difficult for the authors, who state that ``more than any extension to Alloy, what would have benefited our study most is a tool capable of automatically producing planar embeddings of meshes from Alloy instances, which proved to be tedious to do by hand.''
@@ -108,11 +108,9 @@ As we move to sparse matrices and the dynamic state changes that accompany opera
 %   have/started with feedback from the community to come up with our
 %   design goals and approach that we now describe.}
 
-Development of Sterling was sparked by discussions among users at the 2018 Workshop on the Future of Alloy where we presented some initial ideas supporting enhanced instance visualization.
-Drawing on this feedback and motivated by visualization challenges presented in our own studies,
-% Motivated by these discussions and the visualization challenges presented by our own studies,
-we developed an approach to instance visualization characterized by the following design principles: a visualizer should provide (1) an Alloy-like user interface when possible, (2) immediate visual feedback, and (3) functionality for creating domain specific visualizations.
-% Motivated by these studies, we have developed an approach to instance visualization that builds on the strengths of existing visualizations and is characterized by the following design principles: a visualizer should provide (1) an Alloy-like user interface when possible, (2) immediate visual feedback, and (3) functionality for creating domain specific visualizations.
+% Development of Sterling was sparked by discussions among users at the 2018 Workshop on the Future of Alloy where we presented some initial ideas supporting enhanced instance visualization.
+% Drawing on this feedback and motivated by visualization challenges presented in our own studies, we developed an approach to instance visualization characterized by the following design principles: a visualizer should provide (1) an Alloy-like user interface when possible, (2) immediate visual feedback, and (3) functionality for creating domain specific visualizations.
+Motivated by these studies, and drawing on feedback and suggestions from the 2018 Workshop on the Future of Alloy, we have developed an approach to instance visualization that builds on the strengths of existing visualizations and is characterized by the following design principles: a visualizer should provide (1) an Alloy-like user interface when possible, (2) immediate visual feedback, and (3) functionality for creating domain specific visualizations.
 
 % Motivated by these studies, we developed an approach to instance visualization that builds on the strengths of existing visualizations and is characterized by the following design principles: (1) a visualizer should provide an Alloy-like user interface when possible; (2) a visualizer should provide immediate visual feedback and minimize the effort required to create legible visualization; and (3) a visualizer should provide functionality for creating domain specific visualizations.
 
