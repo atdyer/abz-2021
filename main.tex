@@ -67,7 +67,7 @@ While development is driven primarily by the Alloy community, other relational m
 
 Model finding tools like Alloy enable a lightweight approach to design and reasoning about complex software systems. Such tools provide push-button analysis for both checking assertions within bounded scopes, and for generating instances that satisfy a property of interest. An attractive feature of Alloy is the immediate feedback provided by visualizations, allowing users to inspect instances and counterexamples in order to identify design problems. The ability to communicate visual information \emph{intuitively} therefore plays a key role in determining the effectiveness of interactions with the user~\cite{gammaitoni2014}.
 
-The Alloy Analyzer includes a visualizer that can display an instance as a directed graph in which nodes represent atoms and edges represent tuples of relations.
+The visualizer in the Alloy Analyzer can display an instance as a directed graph in which nodes represent atoms and edges represent tuples of relations.
 To help users better understand an instance, basic properties of the graph such as color and shape can be customized, and graph nodes can repositioned manually to achieve a clearer layout.
 Additionally, the graph view supports ``projection,'' a feature most commonly used with models of dynamic systems. 
 When an instance of such a model is projected over time, the user is able to step through snapshots of individual states in sequence.
@@ -92,7 +92,7 @@ Our own experiences with Alloy in the field of scientific computing have highlig
 For instance, in one such study, Baugh and Altuntas~\cite{baugh-scp-2018} use Alloy to explore implementation choices and ensure soundness of an extension made to a large-scale storm surge application used in production.
 To be physically meaningful, models representing finite element meshes---which can be thought of as a triangulation of a surface---are constrained to include only those that have a planar embedding.
 Working with relational depictions alone means ``untangling'' each instance as it occurs, leading to the study's conclusion that ``more than any extension to Alloy, what would have benefited our study most is a tool capable of automatically producing planar embeddings of meshes from Alloy instances, which proved to be tedious to do by hand.''
-In a subsequent study~\cite{dyer2019} with Alloy, our group performs bounded verification of sparse matrix formats, which use array indirection and other structure to avoid storing zeroes.
+A subsequent study~\cite{dyer2019} with Alloy focused on bounded verification of sparse matrix formats, which use array indirection and other structure to avoid storing zeroes.
 Dense matrices are modeled as relations mapping indices to values, producing dozens of tuples that clutter and overrun any visualization attempt with edges.
 The sparse matrices themselves, and the dynamic state changes that accompany them for operations like matrix multiplication, make visualizations nearly impossible to interpret.
 
@@ -112,7 +112,11 @@ The sparse matrices themselves, and the dynamic state changes that accompany the
 
 % Development of Sterling was sparked by discussions among users at the 2018 Workshop on the Future of Alloy where we presented some initial ideas supporting enhanced instance visualization.
 % Drawing on this feedback and motivated by visualization challenges presented in our own studies, we developed an approach to instance visualization characterized by the following design principles: a visualizer should provide (1) an Alloy-like user interface when possible, (2) immediate visual feedback, and (3) functionality for creating domain specific visualizations.
-Motivated by these studies, and drawing on feedback and suggestions from the 2018 Workshop on the Future of Alloy, we have developed an approach to instance visualization that builds on the strengths of existing visualizations and is characterized by the following design principles: a visualizer should provide (1) an Alloy-like user interface when possible, (2) immediate visual feedback, and (3) functionality for creating domain specific visualizations.
+Motivated by these studies, and drawing on feedback and suggestions from the 2018 Workshop on the Future of Alloy, we have developed an approach that builds on the strengths of existing visualizations.
+Our design based on the following principles: the visualizer should
+(1) draw on and extend the capabilities already present in Alloy, (2)
+... modern architecture ... new tools and libraries, and (3) provide
+functionality for creating domain specific visualizations.
 
 % Motivated by these studies, we developed an approach to instance visualization that builds on the strengths of existing visualizations and is characterized by the following design principles: (1) a visualizer should provide an Alloy-like user interface when possible; (2) a visualizer should provide immediate visual feedback and minimize the effort required to create legible visualization; and (3) a visualizer should provide functionality for creating domain specific visualizations.
 
