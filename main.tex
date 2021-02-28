@@ -181,7 +181,7 @@ Communication between Alloy and the individual views is managed using a mediated
 \node[draw,fit=(scriptview.north west)(graphview.north east), anchor=south, above=2.5em of allviews.north, minimum height=2em, inner sep=0, label={[yshift=-1.7em]Mediator}] (mediator) {};
 \draw [dedge] ([xshift=-5.65em]mediator.south) to node[auto] {\scriptsize\shortstack{Instance\\JSON}} (scriptview.north);
 \draw [dedge] ([xshift=5.65em]mediator.south) to node[auto] {\scriptsize\shortstack{Instance\\JSON}} (gbox.north);
-\node[tbox, inner sep=1em, fit=(mediator)(scriptview)(graphview)] {};
+\node[tbox, inner sep=0.75em, fit=(mediator)(scriptview)(graphview)] {};
 }
 
 % npm
@@ -199,9 +199,9 @@ Communication between Alloy and the individual views is managed using a mediated
     node[auto, align=center] {\scriptsize\shortstack{Instance\\Requests}} 
     ([yshift=-0.25em]alloy.east);
     
-\node[draw, fit=(sterling.south west)(sterling.south east), anchor=north, below=0 of sterling.south, minimum height=2.5em, inner sep=0, outer sep=0] (webstack) {};
-\node[draw, fit=(scriptview.south west)(scriptview.south east), anchor=north, below=1.5em of scriptview.south, minimum height=1.5em, inner sep=0, outer sep=0, label=center:\scriptsize React] (react) {};
-\node[draw, fit=(scriptview.south west)(scriptview.south east), anchor=west, right=1.em of react.east, minimum height=1.5em, inner sep=0, outer sep=0, label=center:\scriptsize Redux] (redux) {};
+\node[draw, fit=(sterling.south west)(sterling.south east), anchor=north, below=0.5em of sterling.south, minimum height=2.5em, inner sep=0, outer sep=0] (webstack) {};
+\node[draw, fit=(scriptview.south west)(scriptview.south east), anchor=north, below=1.75em of scriptview.south, minimum height=1.5em, inner sep=0, outer sep=0, label=center:\scriptsize React] (react) {};
+\node[draw, fit=(scriptview.south west)(scriptview.south east), anchor=west, right=1em of react.east, minimum height=1.5em, inner sep=0, outer sep=0, label=center:\scriptsize Redux] (redux) {};
 
 % { [local bounding box=webstack, node distance=0.35em]
 %     \node [ltbox] (js) {JS};
