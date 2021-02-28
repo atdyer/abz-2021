@@ -76,7 +76,7 @@ Some well-known issues, for instance, include the inability to drag nodes out of
 In addition, the graph layout is recalculated any time a new instance is generated or the projection is changed, so the user is forced to reinterpret the entire graph if, for example, they are stepping through the state atoms in sequence~\cite{couto2018,misue1995,zaman2013}.
 Various approaches have been proposed to address these and other issues, either by extending the existing visualizer~\cite{zaman2013} or by introducing new tools~\cite{couto2018,macedo2019,gammaitoni2014}.
 % While various approaches have been proposed to address these and other issues, either by extending the existing visualizer~\cite{zaman2013} or by introducing new tools~\cite{couto2018,macedo2019,gammaitoni2014}, our own experience using Alloy in the field of scientific computing has highlighted the need for an approach that facilitates the clear expression of \emph{spatial} relationships---not just topological ones---and to \emph{consistency} in those relationships when dynamic updates occur, as they do in problems with time-varying state.
-
+%
 % {\color{red}The transition here needs to be that our prior studies
 %   motivate what we're doing now.  Otherwise the reader will think
 %   we're about to describe other ``prior'' visualization work instead
@@ -84,15 +84,16 @@ Various approaches have been proposed to address these and other issues, either 
 %   ... Beyond these limitations, our own work has demonstrated the need
 %   for improved visualization and the ability to customize ... no
 %   ``print'' statements, and need to interpret rich state.}
+%
+Our own experiences with Alloy in the field of scientific computing have highlighted the need for better visualization approaches in general, and for an interface that can also depict \emph{spatial} relationships---not just topological ones---while maintaining \emph{consistency} in those relationships when dynamic updates occur, as they do in problems with time-varying state.
 
-Our own experience using Alloy in the field of scientific computing, however, has highlighted the need for an approach that facilitates the clear expression of \emph{spatial} relationships---not just topological ones---and to maintaining \emph{consistency} in those relationships when dynamic updates occur, as they do in problems with time-varying state.
 % This work, which we describe below, has additionally demonstrated the need for an approach that facilitates the expression of rich state and enables users to choose an appropriate visual abstraction without being restricted by the design and implementation choices of the visualizer.
-In one study, Baugh and Altuntas~\cite{baugh-scp-2018} use Alloy to explore implementation choices and ensure soundness of an extension made to an ocean circulation model called ADCIRC.
-In the models, finite element mesh topologies are constrained to include only those that have a planar embedding, ensuring the mesh, which can be thought of as a triangulation of a surface, is physically meaningful. 
-Inferring the planar embedding given only the topologies of the model relations proved difficult for the authors, who state that ``more than any extension to Alloy, what would have benefited our study most is a tool capable of automatically producing planar embeddings of meshes from Alloy instances, which proved to be tedious to do by hand.''
-In another study~\cite{dyer2019}, we use Alloy to verify the full functional correctness (within a bounded scope) of sparse matrix formats, which use array indirection and other structure to avoid storing zeroes.
-Dense matrices are modeled as relations mapping indices to values, and they can contain dozens of tuples, resulting in a visualization cluttered with edges.
-As we move to sparse matrices and the dynamic state changes that accompany operations like matrix multiplication, the visualizations become nearly impossible to interpret.
+For instance, in one such study, Baugh and Altuntas~\cite{baugh-scp-2018} use Alloy to explore implementation choices and ensure soundness of an extension made to a large-scale storm surge application used in production.
+To be physically meaningful, models representing finite element meshes---which can be thought of as a triangulation of a surface---are constrained to include only those that have a planar embedding.
+Working with relational depictions alone means ``untangling'' each instance as it occurs, leading to the study's conclusion that ``more than any extension to Alloy, what would have benefited our study most is a tool capable of automatically producing planar embeddings of meshes from Alloy instances, which proved to be tedious to do by hand.''
+In a subsequent study~\cite{dyer2019}, our group uses Alloy to perform bounded verification of sparse matrix formats, which use array indirection and other structure to avoid storing zeroes.
+Dense matrices are modeled as relations mapping indices to values, producing dozens of tuples that clutter and overrun any visualization attempt with edges.
+The sparse matrices themselves, and the dynamic state changes that accompany them for operations like matrix multiplication, make visualizations nearly impossible to interpret.
 
 
 \section{Sterling Design Goals and Architecture}
