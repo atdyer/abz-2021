@@ -9,6 +9,7 @@
 \usetikzlibrary{scopes}
 \usetikzlibrary{fit}
 \usetikzlibrary{arrows.meta}
+\usetikzlibrary{shapes}
 
 \newcommand{\dummyfigsmall}[1]{
   \centering
@@ -116,7 +117,7 @@ Motivated by these studies, and drawing on feedback and suggestions from the 201
 % Motivated by these studies, we developed an approach to instance visualization that builds on the strengths of existing visualizations and is characterized by the following design principles: (1) a visualizer should provide an Alloy-like user interface when possible; (2) a visualizer should provide immediate visual feedback and minimize the effort required to create legible visualization; and (3) a visualizer should provide functionality for creating domain specific visualizations.
 
 
-Consistent with design goals 1 and 2, Sterling is a React web application,\footnote{A Sterling demo with examples can be found at \href{https://sterling-js.github.io/demo}{https://sterling-js.github.io/demo}} packaged with a custom build of Alloy, that is launched automatically in the user's default browser by Alloy when an instance is generated. 
+Consistent with design goals 1 and 2, Sterling is a web application,\footnote{A Sterling demo with examples can be found at \href{https://sterling-js.github.io/demo}{https://sterling-js.github.io/demo}} built using React and Redux and packaged with a custom build of Alloy, that is launched automatically in the user's default browser by Alloy when an instance is generated. 
 % Drawing on the approach taken by tools like Alloy4Fun~\cite{macedo2019} and BMotionWeb~\cite{ladenberger2016}, a web-based platform was chosen due to the availability of robust data visualization and user interface libraries as well as the popularity of the JavaScript programming language.
 % A client-server relationship is established between Sterling and Alloy by an embedded web server in Alloy, enabling instances to be delivered to Sterling in the XML format provided by Alloy. 
 The user interface is similar to Alloy's own, providing graph and table views which extend the functionality of their counterparts in Alloy, while the addition of a ``script'' view provides users with the ability to create custom visualizations from instance data by writing JavaScript code, addressing our third design goal.
@@ -144,10 +145,10 @@ Communication between Alloy and the individual views is managed using a mediated
 \node[bline, minimum width=2em,   below=0.45em of l3.west, anchor=west] (l4) {};
 \node[bline, minimum width=2.5em, below=0.45em of l4.west, anchor=west] (l5) {};
 \node[bline, minimum width=4em,   below=0.45em of l5.west, anchor=west] (l6) {};
-\node[bline, minimum width=1em,   below=0.45em of l6.west, anchor=west] (l7) {};
-\node[bline, minimum width=3.5em, below=0.45em of l7.west, anchor=west] (l8) {};
-\node[ltbox, fit=(l1)(l2)(l3)(l4)(l5)(l6)(l7)(l8), inner sep=0.35em] (ed) {};
-\node[ltbox, fit=(l1)(l2)(l3)(l4)(l5)(l6)(l7)(l8), inner sep=0.35em, right=0 of ed.east] (vis) {};
+% \node[bline, minimum width=1em,   below=0.45em of l6.west, anchor=west] (l7) {};
+% \node[bline, minimum width=3.5em, below=0.45em of l7.west, anchor=west] (l8) {};
+\node[ltbox, fit=(l1)(l2)(l3)(l4)(l5)(l6), inner sep=0.35em] (ed) {};
+\node[ltbox, fit=(l1)(l2)(l3)(l4)(l5)(l6), inner sep=0.35em, right=0 of ed.east] (vis) {};
 \node[above=0.15em of ed.north east, inner sep=0.15em] (sv) {\scriptsize Script View};
 \node[tbox, fit=(ed)(vis)(sv), inner sep=0.35em] {};
 }
@@ -155,12 +156,12 @@ Communication between Alloy and the individual views is managed using a mediated
 % Graph View
 { [
     local bounding box=graphview, 
-    gnode/.style={circle,fill=black!20,thick,inner sep=0pt,minimum size=4mm},
+    gnode/.style={circle,fill=black!20,thick,inner sep=0pt,minimum size=3.5mm},
     gedge/.style={->, >={Latex[round]}, semithick, draw=black!20}
   ]
 \node[tbox, fit=(scriptview), inner sep=0, right=1em of scriptview] (gbox) {};
 \node[anchor=north, below=0.15em of gbox.north] (glabel) {\scriptsize Graph View};
-\node[gnode, below=0.5em of glabel] (a) {};
+\node[gnode, below=0.25em of glabel] (a) {};
 \node[gnode, below left=1.25em of a] (b) {}
     edge [gedge] (a) {};
 \node[gnode, below right=1.25em of a] (c) {}
@@ -177,7 +178,7 @@ Communication between Alloy and the individual views is managed using a mediated
 { [
     local bounding box=sterling
   ]
-\node[draw,fit=(scriptview.north west)(graphview.north east), anchor=south, above=2.5em of allviews.north, minimum height=2em, inner sep=0, label={[yshift=-1.7em]Mediator}] (mediator) {};
+\node[draw,fit=(scriptview.north west)(graphview.north east), anchor=south, above=2em of allviews.north, minimum height=2em, inner sep=0, label={[yshift=-1.7em]Mediator}] (mediator) {};
 \draw [dedge] ([xshift=-5.65em]mediator.south) to node[auto] {\scriptsize\shortstack{Instance\\JSON}} (scriptview.north);
 \draw [dedge] ([xshift=5.65em]mediator.south) to node[auto] {\scriptsize\shortstack{Instance\\JSON}} (gbox.north);
 \node[tbox, inner sep=0.75em, fit=(mediator)(scriptview)(graphview)] {};
@@ -198,9 +199,24 @@ Communication between Alloy and the individual views is managed using a mediated
     node[auto, align=center] {\scriptsize\shortstack{Instance\\Requests}} 
     ([yshift=-0.25em]alloy.east);
     
-\node[draw, fit=(sterling.south west)(sterling.south east), anchor=north, below=0.5em of sterling.south, minimum height=2.5em, inner sep=0, outer sep=0] (webstack) {};
-\node[draw, fit=(scriptview.south west)(scriptview.south east), anchor=north, below=1.75em of scriptview.south, minimum height=1.5em, inner sep=0, outer sep=0, label=center:\scriptsize React] (react) {};
-\node[draw, fit=(scriptview.south west)(scriptview.south east), anchor=west, right=1em of react.east, minimum height=1.5em, inner sep=0, outer sep=0, label=center:\scriptsize Redux] (redux) {};
+% web stack
+\node[
+    fit=(sterling.south west)(sterling.south),
+    anchor=north,
+    below=0 of sterling.south,
+    rectangle split,
+    rectangle split horizontal,
+    rectangle split parts=2,
+    rectangle split draw splits=true,
+    rectangle split part align=base,
+    minimum height=1.5em,
+    inner sep=0,
+    outer sep=0,
+    % text width=1em,
+    draw] (webstack) {\nodepart{one}React\nodepart{two}Redux};
+% \node[draw, fit=(sterling.south west)(sterling.south east), anchor=north, below=0.5em of sterling.south, minimum height=2.5em, inner sep=0, outer sep=0] (webstack) {};
+% \node[draw, fit=(scriptview.south west)(scriptview.south east), anchor=north, below=0.75em of scriptview.south, minimum height=1.5em, inner sep=0, outer sep=0, label=center:\scriptsize React] (react) {};
+% \node[draw, fit=(scriptview.south west)(scriptview.south east), anchor=west, right=1em of react.east, minimum height=1.5em, inner sep=0, outer sep=0, label=center:\scriptsize Redux] (redux) {};
 
 % { [local bounding box=webstack, node distance=0.35em]
 %     \node [ltbox] (js) {JS};
