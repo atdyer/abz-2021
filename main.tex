@@ -124,6 +124,13 @@ The user interface is similar to Alloy's own, providing graph and table views wh
 Communication between Alloy and the individual views is managed using a mediated model-view architecture, illustrated in Figure~\ref{fig:sterling}. Consequently, other relational logic and model finding tools may also employ Sterling for visualization, so long as data is provided to Sterling in the Alloy XML format.
 % Communication between Alloy and the individual views is managed using a mediator pattern, illustrated in Figure~\ref{fig:sterling}. This model-view architecture keeps the approach data agnostic, and consequently other relational logic and model finding tools may also employ Sterling for visualization purposes.
 
+% \begin{figure}
+%     \centering
+%     \includegraphics{arch.eps}
+% \caption{The Sterling Architecture.}
+% % A mediator pattern keeps the approach data agnostic so that new visualization techniques can be explored independent of the data source.
+% \label{fig:sterling}
+% \end{figure}
 
 \begin{figure}
 \centering
@@ -199,39 +206,14 @@ Communication between Alloy and the individual views is managed using a mediated
     node[auto, align=center] {\scriptsize\shortstack{Instance\\Requests}} 
     ([yshift=-0.25em]alloy.east);
     
-% web stack
-\node[
-    fit=(sterling.south west)(sterling.south),
-    anchor=north,
-    below=0 of sterling.south,
-    rectangle split,
-    rectangle split horizontal,
-    rectangle split parts=2,
-    rectangle split draw splits=true,
-    rectangle split part align=base,
-    minimum height=1.5em,
-    inner sep=0,
-    outer sep=0,
-    % text width=1em,
-    draw] (webstack) {\nodepart{one}React\nodepart{two}Redux};
-% \node[draw, fit=(sterling.south west)(sterling.south east), anchor=north, below=0.5em of sterling.south, minimum height=2.5em, inner sep=0, outer sep=0] (webstack) {};
-% \node[draw, fit=(scriptview.south west)(scriptview.south east), anchor=north, below=0.75em of scriptview.south, minimum height=1.5em, inner sep=0, outer sep=0, label=center:\scriptsize React] (react) {};
-% \node[draw, fit=(scriptview.south west)(scriptview.south east), anchor=west, right=1em of react.east, minimum height=1.5em, inner sep=0, outer sep=0, label=center:\scriptsize Redux] (redux) {};
-
-% { [local bounding box=webstack, node distance=0.35em]
-%     \node [ltbox] (js) {JS};
-%     \node [ltbox, right=of js] (html) {HTML};
-%     \node [ltbox, right=of html] (css) {CSS};
-%     \node [tbox, fit=(js)(html)(css)] {};
-% }
-% { [local bounding box=jsstack, node distance=0.35em]
-%     \node [ltbox, above=2.45em of js.west, anchor=west] (react) {React};
-%     \node [ltbox, right=of react] (redux) {Redux};
-%     \node [tbox, fit=(react)(redux)] {};
-% }
-
-% Alloy
-% \node [draw, left=of webstack] (alloy) {Alloy};
+% webstack
+\coordinate[below=1.5em of sterling.south west](bl);
+\coordinate[below=1.5em of sterling.south](bc);
+\coordinate[below=1.5em of sterling.south east](br);
+\draw (sterling.south west) -- (bl) -- (br) -- (sterling.south east);
+\draw (sterling.south) -- (bc);
+\node[below=0.85em of scriptview.south] (react) {\scriptsize React};
+\node[right=8em of react] {\scriptsize Redux};
 
 \end{tikzpicture}
 \caption{The Sterling Architecture.}
