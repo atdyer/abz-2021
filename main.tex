@@ -113,18 +113,19 @@ The sparse matrices themselves, and the dynamic state changes that accompany the
 % Development of Sterling was sparked by discussions among users at the 2018 Workshop on the Future of Alloy where we presented some initial ideas supporting enhanced instance visualization.
 % Drawing on this feedback and motivated by visualization challenges presented in our own studies, we developed an approach to instance visualization characterized by the following design principles: a visualizer should provide (1) an Alloy-like user interface when possible, (2) immediate visual feedback, and (3) functionality for creating domain specific visualizations.
 Motivated by these studies, and drawing on feedback and suggestions from the 2018 Workshop on the Future of Alloy, we have developed an approach that builds on the strengths of existing visualizations.
-Our design based on the following principles: the visualizer should
-(1) draw on and extend the capabilities already present in Alloy, (2)
-... modern architecture ... new tools and libraries, and (3) provide
-functionality for creating domain specific visualizations.
+Sterling's design is based on the following principles: the visualizer should (1) implement and extend the capabilities already present in Alloy, (2) employ a modern architecture built using popular languages and well established libraries, and (3) provide functionality for creating domain specific visualizations.
+% Our design based on the following principles: the visualizer should
+% (1) draw on and extend the capabilities already present in Alloy, (2)
+% ... modern architecture ... new tools and popular libraries, and (3) provide
+% functionality for creating domain specific visualizations.
 
 % Motivated by these studies, we developed an approach to instance visualization that builds on the strengths of existing visualizations and is characterized by the following design principles: (1) a visualizer should provide an Alloy-like user interface when possible; (2) a visualizer should provide immediate visual feedback and minimize the effort required to create legible visualization; and (3) a visualizer should provide functionality for creating domain specific visualizations.
 
 
-Consistent with design goals 1 and 2, Sterling is a web application,\footnote{A Sterling demo with examples can be found at \href{https://sterling-js.github.io/demo}{https://sterling-js.github.io/demo}} built using React and Redux and packaged with a custom build of Alloy, that is launched automatically in the user's default browser by Alloy when an instance is generated. 
+Consistent with these design principles, Sterling is a web application,\footnote{A Sterling demo with examples can be found at \href{https://sterling-js.github.io/demo}{https://sterling-js.github.io/demo}} built using React and Redux and packaged with a custom build of Alloy, that is launched automatically in the user's default browser by Alloy when an instance is generated. 
 % Drawing on the approach taken by tools like Alloy4Fun~\cite{macedo2019} and BMotionWeb~\cite{ladenberger2016}, a web-based platform was chosen due to the availability of robust data visualization and user interface libraries as well as the popularity of the JavaScript programming language.
 % A client-server relationship is established between Sterling and Alloy by an embedded web server in Alloy, enabling instances to be delivered to Sterling in the XML format provided by Alloy. 
-The user interface is similar to Alloy's own, providing graph and table views which extend the functionality of their counterparts in Alloy, while the addition of a ``script'' view provides users with the ability to create custom visualizations from instance data by writing JavaScript code, addressing our third design goal.
+The user interface is similar to Alloy's own, providing graph and table views which extend the functionality of their counterparts in Alloy, while the addition of a ``script'' view provides users with the ability to create custom visualizations from instance data by writing JavaScript code.
 Communication between Alloy and the individual views is managed using a mediated model-view architecture, illustrated in Figure~\ref{fig:sterling}. Consequently, other relational logic and model finding tools may also employ Sterling for visualization, so long as data is provided to Sterling in the Alloy XML format.
 % Communication between Alloy and the individual views is managed using a mediator pattern, illustrated in Figure~\ref{fig:sterling}. This model-view architecture keeps the approach data agnostic, and consequently other relational logic and model finding tools may also employ Sterling for visualization purposes.
 
