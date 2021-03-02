@@ -1,8 +1,8 @@
 \documentclass[runningheads]{llncs}
 
 \usepackage[hidelinks]{hyperref}
+\renewcommand\UrlFont{\color{blue}\rmfamily}
 
-\usepackage{subcaption}
 \usepackage{tikz}
 \usepackage{url}
 \usetikzlibrary{positioning}
@@ -11,36 +11,17 @@
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{shapes}
 
-\newcommand{\dummyfigsmall}[1]{
-  \centering
-  \fbox{
-    \begin{minipage}[c][0.1\textheight][c]{0.5\textwidth}
-      \centering{#1}
-    \end{minipage}
-  }
-}
-
-\newcommand{\dummyfiglarge}[1]{
-  \centering
-  \fbox{
-    \begin{minipage}[c][0.35\textheight][c]{0.5\textwidth}
-      \centering{#1}
-    \end{minipage}
-  }
-}
-
 \begin{document}
 
 \title{Sterling: A Web-based Visualizer\\ for Relational Modeling Languages}
 \author{Tristan Dyer \inst{1} \and John Baugh \inst{2}}
 \authorrunning{Dyer and Baugh}
 
-\institute{Brown University \and North Carolina State University}
+\institute{Brown University, Providence, RI \and North Carolina State University, Raleigh, NC}
 
 \authorrunning{Dyer and Baugh}
 
 \maketitle
-
 \begin{abstract}
 We introduce Sterling, a web-based visualization tool that provides interactive views of relational models and allows users to create custom visualizations using modern JavaScript libraries like D3 and Cytoscape.
 We outline its design goals and architecture, and describe custom visualizations developed with Sterling that enable verification studies of scientific software used in production.
@@ -68,7 +49,7 @@ While development is driven primarily by the Alloy community, other relational m
 Model finding tools like Alloy enable a lightweight approach to design and reasoning about complex software systems. Such tools provide push-button analysis for both checking assertions within bounded scopes, and for generating instances that satisfy a property of interest. An attractive feature of Alloy is the immediate feedback provided by visualizations, allowing users to inspect instances and counterexamples in order to identify design problems. The ability to communicate visual information \emph{intuitively} therefore plays a key role in determining the effectiveness of interactions with the user~\cite{gammaitoni2014}.
 
 The visualizer in the Alloy Analyzer can display an instance as a directed graph in which nodes represent atoms and edges represent tuples of relations.
-To help users better understand an instance, basic properties of the graph such as color and shape can be customized, and graph nodes can repositioned manually to achieve a clearer layout.
+To help users better understand an instance, basic properties of the graph such as color and shape can be customized, and graph nodes can be repositioned manually to achieve a clearer layout.
 Additionally, the graph view supports ``projection,'' a feature most commonly used with models of dynamic systems. 
 When an instance of such a model is projected over time, the user is able to step through snapshots of individual states in sequence.
 
@@ -121,7 +102,7 @@ Sterling's design is based on the following principles: the visualizer should (1
 
 % Motivated by these studies, we developed an approach to instance visualization that builds on the strengths of existing visualizations and is characterized by the following design principles: (1) a visualizer should provide an Alloy-like user interface when possible; (2) a visualizer should provide immediate visual feedback and minimize the effort required to create legible visualization; and (3) a visualizer should provide functionality for creating domain specific visualizations.
 
-Consistent with these principles, Sterling is designed as a web application,\footnote{A Sterling demo with examples can be found at \href{https://sterling-js.github.io/demo}{https://sterling-js.github.io/demo}} built using React and Redux libraries, and packaged with a custom build of Alloy that is launched automatically in the user's default browser by Alloy when an instance is generated. 
+Consistent with these principles, Sterling is designed as a web application,\footnote{A Sterling demo with examples can be found at \href{https://sterling-js.github.io}{https://sterling-js.github.io}} built using React and Redux libraries, and packaged with a custom build of Alloy that is launched automatically in the user's default browser by Alloy when an instance is generated. 
 % Drawing on the approach taken by tools like Alloy4Fun~\cite{macedo2019} and BMotionWeb~\cite{ladenberger2016}, a web-based platform was chosen due to the availability of robust data visualization and user interface libraries as well as the popularity of the JavaScript programming language.
 % A client-server relationship is established between Sterling and Alloy by an embedded web server in Alloy, enabling instances to be delivered to Sterling in the XML format provided by Alloy. 
 The user interface is similar to Alloy's own, providing graph and table views which extend the functionality of their counterparts in Alloy, while adding a ``script'' view that provides users with the ability to create custom visualizations from instance data by writing JavaScript code.
@@ -264,7 +245,7 @@ As such, users receive the same kind of immediate visual feedback provided by th
 \label{conclusions}
 Sterling addresses some of the common issues identified with existing visualizations in Alloy, and introduces a script view to enable development of custom visualizations without sacrificing the immediate visual feedback provided by the Alloy Analyzer.
 Development is ongoing and part of the lead author's postdoc at Brown University, where Sterling's flexible architecture is being leveraged to develop user studies with the goal of better understanding the role of visualization and user interaction in state-based modeling. 
-Additionally, Sterling is the visualizer for an Alloy-like model finder called Forge, developed at Brown University to teach a Logic for Systems class of over 100 students.
+Additionally, Sterling is the visualizer for an Alloy-like model finder called Forge, developed at Brown University to teach a Logic for Systems class of over 60 students.
 
 % Furthermore, the mediator pattern provides flexibility in terms of data providers and visualizations. 
 % Regarding data providers, Alloy need not be the source of data so long as the data being supplied to Sterling adheres to the XML format of an Alloy instance and communication is in adherence with the protocol outlined above. 
