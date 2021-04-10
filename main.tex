@@ -10,6 +10,8 @@
 \usetikzlibrary{fit}
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{shapes}
+\usepackage{caption}
+\usepackage{subcaption}
 
 \begin{document}
 
@@ -50,7 +52,7 @@ Model finding tools like Alloy enable a lightweight approach to design and reaso
 
 The visualizer in the Alloy Analyzer can display an instance as a directed graph in which nodes represent atoms and edges represent tuples of relations.
 To help users better understand an instance, basic properties of the graph such as color and shape can be customized, and graph nodes can be repositioned manually to achieve a clearer layout.
-Additionally, the graph view supports ``projection,'' a feature most commonly used with models of dynamic systems. 
+Additionally, the graph view supports ``projection,'' a feature most commonly used with models of dynamic systems, in which an instance is displayed from the perspective of an atom or set of atoms.
 When an instance of such a model is projected over time, the user is able to step through snapshots of individual states in sequence.
 
 Despite these capabilities, some instances can be difficult to interpret as models grow in size and complexity.
@@ -71,7 +73,7 @@ Our own experiences with Alloy in the field of scientific computing have highlig
 
 % This work, which we describe below, has additionally demonstrated the need for an approach that facilitates the expression of rich state and enables users to choose an appropriate visual abstraction without being restricted by the design and implementation choices of the visualizer.
 For instance, in one such study, Baugh and Altuntas~\cite{baugh-scp-2018} use Alloy to explore implementation choices and ensure soundness of an extension made to a large-scale storm surge application used in production.
-To be physically meaningful, models representing finite element meshes---which can be thought of as a triangulation of a surface---are constrained to include only those that have a planar embedding.
+To be physically meaningful, models representing finite element meshes---which can be thought of as a triangulation of a surface---are constrained to include only those that have a planar embedding, and therefore do not contain overlapping triangles.
 Working with relational depictions alone means ``untangling'' each instance as it occurs, leading to the study's conclusion that ``more than any extension to Alloy, what would have benefited our study most is a tool capable of automatically producing planar embeddings of meshes from Alloy instances, which proved to be tedious to do by hand.''
 A subsequent study~\cite{dyer2019} with Alloy focused on bounded verification of sparse matrix formats, which use array indirection and other structure to avoid storing zeroes.
 Dense matrices are modeled as relations mapping indices to values, producing dozens of tuples that clutter and overrun any visualization attempt with edges.
@@ -102,9 +104,10 @@ Sterling's design is based on the following principles: the visualizer should (1
 
 % Motivated by these studies, we developed an approach to instance visualization that builds on the strengths of existing visualizations and is characterized by the following design principles: (1) a visualizer should provide an Alloy-like user interface when possible; (2) a visualizer should provide immediate visual feedback and minimize the effort required to create legible visualization; and (3) a visualizer should provide functionality for creating domain specific visualizations.
 
-Consistent with these principles, Sterling is designed as a web application,\footnote{A Sterling demo with examples can be found at \href{https://sterling-js.github.io}{https://sterling-js.github.io}} built using React and Redux libraries, and packaged with a custom build of Alloy that is launched automatically in the user's default browser by Alloy when an instance is generated. 
-% Drawing on the approach taken by tools like Alloy4Fun~\cite{macedo2019} and BMotionWeb~\cite{ladenberger2016}, a web-based platform was chosen due to the availability of robust data visualization and user interface libraries as well as the popularity of the JavaScript programming language.
-% A client-server relationship is established between Sterling and Alloy by an embedded web server in Alloy, enabling instances to be delivered to Sterling in the XML format provided by Alloy. 
+Consistent with these principles, Sterling is a web application,\footnote{A Sterling demo with examples can be found at \href{https://sterling-js.github.io}{https://sterling-js.github.io}} built upon a popular web technology stack using the React and Redux libraries, and packaged with a custom build of Alloy.
+% Consistent with these principles, Sterling is designed as a web application,\footnote{A Sterling demo with examples can be found at \href{https://sterling-js.github.io}{https://sterling-js.github.io}} built using React and Redux libraries, and packaged with a custom build of Alloy. 
+% that is launched automatically in the user's default browser by Alloy when an instance is generated. 
+A client-server relationship is established between Sterling and Alloy by an embedded web server, enabling instances to be immediately visualized in Sterling as they are generated by Alloy.
 The user interface is similar to Alloy's own, providing graph and table views which extend the functionality of their counterparts in Alloy, while adding a ``script'' view that provides users with the ability to create custom visualizations from instance data by writing JavaScript code.
 Communication between Alloy and the individual views is managed using a mediated model-view architecture, illustrated in Figure~\ref{fig:sterling}. Consequently, other relational logic and model finding tools may also employ Sterling for visualization, so long as data is provided to Sterling in the Alloy XML format.
 % Communication between Alloy and the individual views is managed using a mediator pattern, illustrated in Figure~\ref{fig:sterling}. This model-view architecture keeps the approach data agnostic, and consequently other relational logic and model finding tools may also employ Sterling for visualization purposes.
@@ -207,7 +210,7 @@ Communication between Alloy and the individual views is managed using a mediated
 \end{figure}
 
 
-The Sterling graph view offers the same functionality of the Alloy graph view, but also provides a few key extensions. 
+The Sterling graph view offers the same functionality as the Alloy graph view, but also provides a few key extensions. 
 Most notably, graph elements are not restricted to rows, and users may freely arrange graphical elements to make the display more readable. 
 Furthermore, the layout algorithm is not automatically executed when the projection is changed or a new instance is generated, and so graphical elements remain static as users step through stateful models and generate instances.
 % Furthermore, the layout algorithm is not automatically executed when the projection is updated or when a new instance is generated, unless the graphs do not have any elements in common. As such, graphical elements remain static as users step through stateful models and generate instances.
@@ -219,33 +222,70 @@ Within the script view environment, all instance data---the signatures, fields, 
 Additionally, users have direct access to the npm package repository, which can be used to add visualization (or any other useful) libraries to the scripting environment.
 % This combination enables, for example, a user to bind atoms to SVG circles using the D3 visualization library, and to calculate their positions based on the relationships defined by the tuples.
 This combination enables, for example, a user to bind atoms to shapes using the D3 visualization library, and to calculate their positions based on relationships defined by tuples.
-
 We have found this paradigm to be particularly useful for visualizing instances of models with inherent spatial properties.
 For example, a planar embedding of a finite element mesh, as previously described, is shown in Figure~\ref{fig:script}. More custom visualizations, including ones for sparse matrices and some common puzzles, can be found in the interactive demo on the Sterling website.
-% We have found this paradigm to be particularly useful for visualizing instances of models with inherent spatial properties, such as the previously discussed mesh and sparse matrix models shown in Figure~\ref{fig:script}.
-Scripts written in the editor are executed each time Sterling receives a new instance or the projection is updated. 
-As such, users receive the same kind of immediate visual feedback provided by the graph view, with the added benefit of complete control over the visual approach used to display instances.
 
 \begin{figure}
     \centering
-    \frame{\includegraphics[width=0.95\linewidth]{mesh.png}}
-    \caption{An Alloy instance of a finite element mesh, rendered as a planar embedding in the Sterling script view. Mesh nodes are rendered as white circles and elements as green triangles.}
-    % \begin{subfigure}{0.95\textwidth}
-    % \includegraphics[width=\linewidth]{test.png}
-    % \end{subfigure}
-    % \caption{Custom visualizations created with the Sterling script view: (1) an instance of the dining philosophers problem in which deadlock has been reached; (2) an instance of a binary tree model in which nodes are positioned based on their presence in the ``left'' and ``right'' relations.}
+    \frame{\includegraphics[width=0.9\linewidth]{mesh.png}}
+    \caption{An Alloy instance of a finite element mesh, rendered as a planar embedding in the Sterling script view.
+    % Mesh nodes are rendered as white circles and elements as green triangles.
+    }
     \label{fig:script}
 \end{figure}
 
-%Sterling is a web application, packaged with a custom build of Alloy, that provides both an enhanced graph visualization to address limitations of Alloy's visualizer and a means for creating custom visualizations when the directed graph representation proves insufficient.
-%Drawing on the approach taken by tools like Alloy4Fun~\cite{macedo2019} and BMotionWeb~\cite{ladenberger2016}, a web-based platform was chosen due to the availability of robust data visualization and user interface libraries as well as the popularity of the JavaScript programming language. 
-%Consistent with design goals~\ref{dg1} and~\ref{dg2}, Sterling is launched automatically by Alloy when an instance is generated, presenting a familiar user interface. Mirroring the Alloy Visualizer interface, multiple methods for viewing the instance are available through 
+% We have found this paradigm to be particularly useful for visualizing instances of models with inherent spatial properties, such as the previously discussed mesh and sparse matrix models shown in Figure~\ref{fig:script}.
 
-\section{Conclusion}
+The script view is designed to integrate with the iterative design process that is typical of Alloy, and as such, users receive the same kind of immediate visual feedback provided by the graph view, with the added benefit of complete control over the visual approach used to display instances.
+In typical usage of the script view, a user begins by writing a model and executing a command to generate an instance. 
+The instance is automatically sent to Sterling, where the user then writes a script in the script view.
+%The script is executed by pressing `Ctrl+Enter' or by clicking the `Execute' button, and the visualization is displayed.
+To execute the script and generate the visualization, the user presses `Ctrl+Enter' or clicks the `Execute' button located at the top of the script editor.
+The user can continue to refine the visualization by editing and rerunning the script, or use the ``Next'' button to explore more instances. 
+Each time an instance is generated, Sterling automatically executes the script to re-render the visualization. 
+This automatic execution continues when the user returns to Alloy, refines the model, and generates new instances. 
+If the model is changed in a way that causes the visualization script to throw an error, the user is notified, and they must then update the visualization script to reflect the new model.
+
+In practice we have found visualization scripts typically start out simple and grow in complexity alongside the model.
+For example, early iterations of the previously described matrix models employed the Cytoscape JS library to create interactive ``snapshot'' views of instances, as shown in Figure~\ref{fig:matrix-cyto}. 
+These snapshots, described in Jackson~\cite{jackson2012}, proved useful in the development and understanding of both the hierarchical and relational structure of the models.
+As the structure of the models became more concrete and focus shifted to modeling the behavior of sparse matrix operations, the visualization script evolved to provide a more realistic view of matrices as well as a clear depiction of state change, as shown in Figure~\ref{fig:matrix-d3}.
+
+% the script in Figure~\ref{fig:cytoscape} uses the Cytoscape JS library to create an interactive ``snapshot'' visualization of previously described sparse matrix models. 
+% For example, the script in Figure~\ref{fig:cytoscape} uses the Cytoscape JS library to create an interactive ``snapshot'' visualization --- similar to those found in Software Abstractions~\cite{jackson2012} --- of a binary search tree model. This visualization reflects both the hierarchical and relational structure of the instance, and is a useful starting point for customization.
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}{\linewidth}
+        \centering
+        \frame{\includegraphics[width=0.9\linewidth]{matrix-cyto-2.png}}
+        \caption{A snapshot view of a dense matrix}
+        \label{fig:matrix-cyto}
+    \end{subfigure}
+    \par\bigskip
+    \begin{subfigure}{\linewidth}
+        \centering
+        \frame{\includegraphics[width=0.9\linewidth]{matrix-nice-2.png}}
+        \caption{A sparse matrix update operation}
+        \label{fig:matrix-d3}
+    \end{subfigure}
+    \caption{Scripts used to visualize matrix models at (a) early and (b) late stages of model development.}
+    \label{fig:matrices}
+\end{figure}
+
+For users who are comfortable using JavaScript, particularly those with experience using popular JS visualization libraries, creating custom visualizations from Alloy instances is straightforward. 
+To support users with little or no experience, the Sterling website provides tutorials and numerous examples that demonstrate basic visualization techniques.
+Furthermore, scripts capable of generating custom visualizations for some common modeling paradigms, such as binary trees and directed graphs, are available on the website and can be used out-of-the-box.
+
+\section{Related Work and Conclusion}
 \label{conclusions}
 Sterling addresses some of the common issues identified with existing visualizations in Alloy, and introduces a script view to enable development of custom visualizations without sacrificing the immediate visual feedback provided by the Alloy Analyzer.
+The Sterling architecture and visualization approach take inspiration from other tools developed to address certain visualization challenges in Alloy and other formalisms.
+Alloy4Fun~\cite{macedo2019} and BMotionWeb~\cite{ladenberger2016} are both web-based tools that leverage the popularity of the JavaScript programming language and the availability of robust data visualization libraries, and PVSio-Web~\cite{oladimeji2014} employs a client-server architecture to enable coupling of a formal verification tool with a web-based interface. VisB~\cite{werth2020}, a tool built upon Java, JavaFX, and JavaScript, enables the creation of interactive SVG visualizations for models developed in ProB using an approach that does not require user to have prior knowledge of JavaScript.
+
 Development is ongoing and part of the lead author's postdoc at Brown University, where Sterling's flexible architecture is being leveraged to develop user studies with the goal of better understanding the role of visualization and user interaction in state-based modeling. 
-Additionally, Sterling is the visualizer for an Alloy-like model finder called Forge, developed at Brown University to teach a Logic for Systems class of over 60 students.
+Additionally, Sterling is the visualizer for an Alloy-like model finder called Forge, which is being developed at Brown University and is used to teach a Logic for Systems class of over 60 students.
+
+\paragraph{\textbf{Acknowledgments.}} The authors would like to thank Shriram Krishnamurthi, Tim Nelson, and Kathi Fisler for their guidance and support in developing Sterling, Mia Santomauro for their work in developing numerous visualizations examples and the Sterling custom visualization guide, and the Alloy community for their helpful discussions and suggestions that have continued to drive the development of Sterling.
 
 % Furthermore, the mediator pattern provides flexibility in terms of data providers and visualizations. 
 % Regarding data providers, Alloy need not be the source of data so long as the data being supplied to Sterling adheres to the XML format of an Alloy instance and communication is in adherence with the protocol outlined above. 
